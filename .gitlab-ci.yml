@@ -5,12 +5,14 @@ variables:
   ARGO_CD_VERSION: "2.0.4"
   KSOPS_VERSION: "v2.6.0"
   KSOPS_PKG_NAME: "ksops"
+  DOCKER_IMAGE_VERSION: 20.10.7
+  DOCKER_DRIVER: overlay2
 
 docker:
-  image: docker:20.10.8
+  image: docker:$DOCKER_IMAGE_VERSION
   stage: docker
   services:
-    - docker:20.10.8-dind
+    - docker:${DOCKER_IMAGE_VERSION}-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - "export build_timestamp=v$(date +%Y%m%d%H%M%S)"
