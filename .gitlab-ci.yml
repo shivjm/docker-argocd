@@ -2,7 +2,7 @@ stages:
   - docker
 
 variables:
-  ARGO_CD_VERSION: "v2.0.4"
+  ARGO_CD_VERSION: "v2.1.0"
   KSOPS_VERSION: "v2.6.0"
   KSOPS_PKG_NAME: "ksops"
 
