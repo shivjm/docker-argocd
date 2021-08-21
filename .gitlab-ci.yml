@@ -2,23 +2,19 @@ stages:
   - docker
 
 variables:
-  ARGO_CD_VERSION: "2.0.4"
+  ARGO_CD_VERSION: "v2.0.4"
   KSOPS_VERSION: "v2.6.0"
   KSOPS_PKG_NAME: "ksops"
-  DOCKER_IMAGE_VERSION: 20.10.7
-  DOCKER_DRIVER: overlay2
 
 docker:
-  image: docker:$DOCKER_IMAGE_VERSION
   stage: docker
-  services:
-    - docker:${DOCKER_IMAGE_VERSION}-dind
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
     - "export build_timestamp=v$(date +%Y%m%d%H%M%S)"
-    - docker build -t $CI_REGISTRY_IMAGE:$build_timestamp -t $CI_REGISTRY_IMAGE:latest . --build-arg GIT_COMMIT_SHA=$CI_COMMIT_SHA --build-arg ARGO_CD_VERSION=$ARGO_CD_VERSION --build-arg KSOPS_VERSION=$KSOPS_VERSION --build-arg PKG_NAME=$KSOPS_PKG_NAME
-    - docker push $CI_REGISTRY_IMAGE:$build_timestamp
-    - docker push $CI_REGISTRY_IMAGE:latest
+    - /kaniko/executor --cache=true --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest --destination $CI_REGISTRY_IMAGE:$build_timestamp --build-arg ARGO_CD_VERSION=$ARGO_CD_VERSION --build-arg KSOPS_VERSION=$KSOPS_VERSION --build-arg PKG_NAME=$KSOPS_PKG_NAME --label GIT_COMMIT_SHA=$CI_COMMIT_SHA --label TIMESTAMP=$build_timestamp
   only:
     - main
-    - merge_requests
