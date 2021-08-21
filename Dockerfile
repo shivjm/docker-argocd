@@ -2,17 +2,9 @@ ARG ARGO_CD_VERSION="v2.0.4"
 # https://github.com/argoproj/argo-cd/blob/master/Dockerfile
 ARG KSOPS_VERSION="v2.6.0"
 
-#--------------------------------------------#
-#--------Build KSOPS and Kustomize-----------#
-#--------------------------------------------#
-
 FROM viaductoss/ksops:$KSOPS_VERSION as ksops-builder
 
-#--------------------------------------------#
-#--------Build Custom Argo Image-------------#
-#--------------------------------------------#
-
-FROM argoproj/argocd:$ARGO_CD_VERSION
+FROM quay.io/argoproj/argocd:$ARGO_CD_VERSION
 
 # Switch to root for the ability to perform install
 USER root
