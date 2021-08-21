@@ -13,7 +13,7 @@ docker:
     - docker:20.10.8-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - "export build_timestamp=v$(cat .timestamp)"
+    - "export build_timestamp=v$(date +%Y%m%d%H%M%S)"
     - docker build -t $IMAGE_NAME:$build_timestamp -t $IMAGE_NAME:latest . --build-arg GIT_COMMIT_SHA=$CI_COMMIT_SHA --build-arg ARGO_CD_VERSION=$ARGO_CD_VERSION --build-arg KSOPS_VERSION=$KSOPS_VERSION --build-arg PKG_NAME=$KSOPS_PKG_NAME
     - docker push $IMAGE_NAME:$build_timestamp
     - docker push $IMAGE_NAME:latest
