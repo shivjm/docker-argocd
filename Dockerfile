@@ -21,7 +21,7 @@ ARG PKG_NAME=ksops
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
 
 # Switch back to non-root user
-USER argocd
+USER 999
 
 # Copy the plugin to kustomize plugin path
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/* $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/${PKG_NAME}/
