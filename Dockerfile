@@ -1,10 +1,12 @@
-ARG ARGO_CD_VERSION
-# https://github.com/argoproj/argo-cd/blob/master/Dockerfile
+ARG ARGOCD_VERSION
+ARG HELM_SECRETS_VERSION
 ARG KSOPS_VERSION
 
 FROM viaductoss/ksops:$KSOPS_VERSION as ksops-builder
 
-FROM quay.io/argoproj/argocd:$ARGO_CD_VERSION
+FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
+
+ARG HELM_SECRETS_VERSION
 
 # Switch to root for the ability to perform install
 USER root
@@ -26,4 +28,4 @@ COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/* $KUSTOM
 
 ENV HELM_SECRETS_SOPS_PATH=$KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/${PKG_NAME}/sops
 
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.8.2
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version $HELM_SECRETS_VERSION
