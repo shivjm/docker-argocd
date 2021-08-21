@@ -1,6 +1,6 @@
-ARG ARGO_CD_VERSION="v2.0.4"
+ARG ARGO_CD_VERSION
 # https://github.com/argoproj/argo-cd/blob/master/Dockerfile
-ARG KSOPS_VERSION="v2.6.0"
+ARG KSOPS_VERSION
 
 FROM viaductoss/ksops:$KSOPS_VERSION as ksops-builder
 
