@@ -1,16 +1,19 @@
-# argocd-ksops-helm-secrets
+# argocd
 
-[![Build and publish to Docker Hub](https://github.com/shivjm/docker-argocd-ksops-helm-secrets/actions/workflows/publish.yml/badge.svg)](https://github.com/shivjm/docker-argocd-ksops-helm-secrets/actions/workflows/publish.yml)
+[![Build and publish to Docker Hub](https://github.com/shivjm/docker-argocd/actions/workflows/publish.yml/badge.svg)](https://github.com/shivjm/docker-argocd/actions/workflows/publish.yml)
 
-A drop-in ArgoCD Docker image replacement with preinstalled [KSOPS](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration) and [helm-secrets](https://github.com/jkroepke/helm-secrets).
+A drop-in ArgoCD Docker image replacement with preinstalled
+[KSOPS](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration),
+[jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler)
+and [helm-secrets](https://github.com/jkroepke/helm-secrets).
 
 ## Issues
 
-<https://github.com/shivjm/docker-argocd-ksops-helm-secrets/issues>
+<https://github.com/shivjm/docker-argocd/issues>
 
 ## Tags
 
-See all available tags at [GitHub (shivjm/docker-argocd-ksops-helm-secrets)](https://github.com/shivjm/docker-argocd-ksops-helm-secrets/pkgs/container/argocd-ksops-helm-secrets/versions).
+See all available tags at [GitHub (shivjm/docker-argocd)](https://github.com/shivjm/docker-argocd/pkgs/container/argocd/versions).
 
 ## Why not use…
 
@@ -40,10 +43,10 @@ resources:
 # use the specified image and tag instead
 images:
 - name: quay.io/argoproj/argocd
-  newName: ghcr.io/shivjm/argocd-ksops-helm-secrets
+  newName: ghcr.io/shivjm/argocd
   newTag: v2.1.0
 ```
 
 ### With Helm
 
-Specify `global.image.repository` and `global.image.tag` when installing using [the community-maintained Helm chart](https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd): <kbd>helm install --atomic argocd argo/argo-cd --set global.image.repository=ghcr.io/shivjm/argocd-ksops-helm-secrets,global.image.tag=v2.1.0</kbd>
+Specify `global.image.repository` and `global.image.tag` when installing using [the community-maintained Helm chart](https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd): <kbd>helm install --atomic argocd argo/argo-cd --set global.image.repository=ghcr.io/shivjm/argocd,global.image.tag=v2.1.0</kbd>

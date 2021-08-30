@@ -1,8 +1,21 @@
 ARG ARGOCD_VERSION
 ARG HELM_SECRETS_VERSION
 ARG KSOPS_VERSION
+ARG GO_VERSION
+ARG JSONNET_BUNDLER_COMMIT
 
-FROM viaductoss/ksops:$KSOPS_VERSION as ksops-builder
+FROM golang:$GO_VERSION-alpine AS jb-builder
+
+RUN apk add -q --no-cache git musl-dev gcc && \
+    mkdir /jsonnet-bundler && \
+    cd /jsonnet-bundler && \
+    git init --quiet && \
+    git remote add origin https://github.com/jsonnet-bundler/jsonnet-bundler.git && \
+    git fetch -n --depth 1 origin $JSONNET_BUNDLER_COMMIT && \
+    git reset --hard FETCH_HEAD && \
+    go build -ldflags="-linkmode external -extldflags=-static" -o jb /jsonnet-bundler/cmd/jb
+
+FROM viaductoss/ksops:$KSOPS_VERSION AS ksops-builder
 
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
@@ -16,6 +29,8 @@ ENV XDG_CONFIG_HOME=$HOME/.config
 ENV KUSTOMIZE_PLUGIN_PATH=$XDG_CONFIG_HOME/kustomize/plugin/
 
 ARG PKG_NAME=ksops
+
+COPY --from=jb-builder /jsonnet-bundler/jb /usr/local/bin/jb
 
 # Override the default kustomize executable with the Go built version
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize

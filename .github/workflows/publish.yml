@@ -23,6 +23,10 @@ jobs:
           - v2.6.0
         helmSecrets:
           - v3.8.3
+        go:
+          - 1.17.0
+        jb:
+          - master
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -50,6 +54,8 @@ jobs:
             ARGOCD_VERSION=${{ matrix.argo }}
             KSOPS_VERSION=${{ matrix.ksops }}
             HELM_SECRETS_VERSION=${{ matrix.helmSecrets }}
+            GO_VERSION=${{ matrix.go }}
+            JSONNET_BUNDLER_VERSION=${{ matrix.jb }}
           tags: "${{ env.image }}:${{ matrix.argo }}" # ignore metadata-action tags
           labels: ${{ steps.meta.outputs.labels }}
           push: true
