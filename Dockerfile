@@ -1,14 +1,14 @@
 ARG ARGOCD_VERSION
-ARG HELM_SECRETS_VERSION
-ARG KSOPS_VERSION
 ARG GO_VERSION
-ARG JSONNET_BUNDLER_COMMIT
+ARG KSOPS_VERSION
 
 FROM golang:$GO_VERSION-alpine AS common
 
 RUN apk add -q --no-cache git musl-dev gcc
 
 FROM common AS jb-builder
+
+ARG JSONNET_BUNDLER_COMMIT
 
 RUN mkdir /jsonnet-bundler && \
     cd /jsonnet-bundler && \
