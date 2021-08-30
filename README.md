@@ -4,6 +4,8 @@
 
 A drop-in ArgoCD Docker image replacement with preinstalled
 [KSOPS](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration),
+[gojsontoyaml](https://github.com/brancz/gojsontoyaml),
+[go-jsonnet](https://github.com/google/go-jsonnet/),
 [jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler)
 and [helm-secrets](https://github.com/jkroepke/helm-secrets).
 
