@@ -54,7 +54,7 @@ jobs:
             KSOPS_VERSION=${{ env.ksops }}
             HELM_SECRETS_VERSION=${{ env.helmSecrets }}
             GO_VERSION=${{ env.go }}
-            JSONNET_BUNDLER_VERSION=${{ env.jb }}
+            JSONNET_BUNDLER_COMMIT=${{ env.jb }}
             GOJSONNET_VERSION=${{ env.jsonnet }}
             GOJSONTOYAML_VERSION=${{ env.gojsontoyaml }}
           tags: "${{ env.image }}:${{ matrix.argo }}" # ignore metadata-action tags
