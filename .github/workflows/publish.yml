@@ -9,7 +9,7 @@ on:
 
 env:
   image: ghcr.io/shivjm/argocd
-  ksops: v2.6.0
+  ksops: v3.0.0
   helmSecrets: v3.8.3
   go: "1.17.0"
   jb: master
