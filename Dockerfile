@@ -10,9 +10,9 @@ FROM common AS jb-builder
 
 ARG JSONNET_BUNDLER_COMMIT
 
-RUN mkdir /jsonnet-bundler && \
-    cd /jsonnet-bundler && \
-    git init --quiet && \
+WORKDIR /jsonnet-bundler
+
+RUN git init --quiet && \
     git remote add origin https://github.com/jsonnet-bundler/jsonnet-bundler.git && \
     git fetch -n --depth 1 origin $JSONNET_BUNDLER_COMMIT && \
     git reset --hard FETCH_HEAD && \
