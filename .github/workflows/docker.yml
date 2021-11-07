@@ -41,6 +41,9 @@ jobs:
           images: ${{ env.image }}
           labels: |
             tools.helmsecrets.version=${{ env.helmSecrets }}
+            tools.jsonnetBundler.commit=${{ env.jb }}
+            tools.jsonnet.version=${{ env.jsonnet }}
+            tools.gojsontoyaml.version=${{ env.gojsontoyaml }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Build and push
