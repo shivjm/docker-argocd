@@ -1,8 +1,8 @@
 ARG ARGOCD_VERSION
-ARG GO_VERSION
-ARG KSOPS_VERSION
 
-FROM golang:$GO_VERSION-alpine AS common
+FROM golang:1.17.0-alpine AS common
+
+LABEL go.version="1.17.0"
 
 RUN apk add -q --no-cache git musl-dev gcc
 
@@ -30,7 +30,9 @@ ARG GOJSONTOYAML_VERSION
 
 RUN go install -ldflags='-extldflags=-static -linkmode=external' github.com/brancz/gojsontoyaml@$GOJSONTOYAML_VERSION
 
-FROM viaductoss/ksops:$KSOPS_VERSION AS ksops-builder
+FROM viaductoss/ksops:v3.0.0 AS ksops-builder
+
+LABEL tools.ksops.version="v3.0.0"
 
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 

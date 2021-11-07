@@ -9,9 +9,7 @@ on:
 
 env:
   image: ghcr.io/shivjm/argocd
-  ksops: v3.0.0
   helmSecrets: v3.8.3
-  go: "1.17.0"
   jb: master
   jsonnet: v0.17.0
   gojsontoyaml: v0.1.0
@@ -41,7 +39,6 @@ jobs:
           images: ${{ env.image }}
           labels: |
             tools.helmsecrets.version=${{ env.helmSecrets }}
-            tools.ksops.version=${{ env.ksops }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Build and push
@@ -54,7 +51,6 @@ jobs:
             ARGOCD_VERSION=${{ matrix.argo }}
             KSOPS_VERSION=${{ env.ksops }}
             HELM_SECRETS_VERSION=${{ env.helmSecrets }}
-            GO_VERSION=${{ env.go }}
             JSONNET_BUNDLER_COMMIT=${{ env.jb }}
             GOJSONNET_VERSION=${{ env.jsonnet }}
             GOJSONTOYAML_VERSION=${{ env.gojsontoyaml }}
