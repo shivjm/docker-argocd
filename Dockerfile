@@ -4,7 +4,7 @@ FROM golang:1.17.0-alpine AS common
 
 LABEL go.version="1.17.0"
 
-RUN apk add -q --no-cache git musl-dev gcc
+RUN apk add -q --no-cache git=2.32.0-r0 musl-dev=1.2.2-r3 gcc=10.3.1_git20210424-r2
 
 FROM common AS jb-builder
 
