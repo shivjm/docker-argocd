@@ -1,18 +1,18 @@
 ARG ARGOCD_VERSION
-ARG GO_VERSION
-ARG KSOPS_VERSION
 
-FROM golang:$GO_VERSION-alpine AS common
+FROM golang:1.17.0-alpine AS common
 
-RUN apk add -q --no-cache git musl-dev gcc
+LABEL go.version="1.17.0"
+
+RUN apk add -q --no-cache git=2.32.0-r0 musl-dev=1.2.2-r3 gcc=10.3.1_git20210424-r2
 
 FROM common AS jb-builder
 
 ARG JSONNET_BUNDLER_COMMIT
 
-RUN mkdir /jsonnet-bundler && \
-    cd /jsonnet-bundler && \
-    git init --quiet && \
+WORKDIR /jsonnet-bundler
+
+RUN git init --quiet && \
     git remote add origin https://github.com/jsonnet-bundler/jsonnet-bundler.git && \
     git fetch -n --depth 1 origin $JSONNET_BUNDLER_COMMIT && \
     git reset --hard FETCH_HEAD && \
@@ -30,7 +30,9 @@ ARG GOJSONTOYAML_VERSION
 
 RUN go install -ldflags='-extldflags=-static -linkmode=external' github.com/brancz/gojsontoyaml@$GOJSONTOYAML_VERSION
 
-FROM viaductoss/ksops:$KSOPS_VERSION AS ksops-builder
+FROM viaductoss/ksops:v3.0.0 AS ksops-builder
+
+LABEL tools.ksops.version="v3.0.0"
 
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
