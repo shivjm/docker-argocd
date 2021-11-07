@@ -12,3 +12,10 @@ jobs:
     uses: "shivjm/docker-argocd/.github/workflows/docker.yml@d46e743ca6f9aa657a5237e6a2823ad7f0b47dec"
     with:
       push: false
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hadolint/hadolint-action@v1.6.0
+        with:
+          dockerfile: Dockerfile
