@@ -36,6 +36,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      # TODO use dockerfile-image-tags to parse tool versions where possible
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
