@@ -40,6 +40,8 @@ FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
 ARG HELM_SECRETS_VERSION
 
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version $HELM_SECRETS_VERSION
+
 # Switch to root for the ability to perform install
 USER root
 
@@ -67,5 +69,3 @@ USER 999
 COPY --from=ksops-builder /go/src/github.com/viaduct-ai/kustomize-sops/* $KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/${PKG_NAME}/
 
 ENV HELM_SECRETS_SOPS_PATH=$KUSTOMIZE_PLUGIN_PATH/viaduct.ai/v1/${PKG_NAME}/sops
-
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version $HELM_SECRETS_VERSION
