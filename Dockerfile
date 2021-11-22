@@ -10,7 +10,7 @@ FROM common AS jb-builder
 
 ARG JSONNET_BUNDLER_COMMIT
 
-RUN go install -ldflags='-extldflags=-static -linkmode=external' github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@$JSONNET_BUNDLER_COMMIT
+RUN go install -ldflags="-extldflags=-static -linkmode=external -X main.Version=$JSONNET_BUNDLER_COMMIT" github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@$JSONNET_BUNDLER_COMMIT
 
 FROM common AS go-jsonnet-builder
 
