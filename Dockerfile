@@ -34,6 +34,14 @@ FROM viaductoss/ksops:v3.0.0 AS ksops-builder
 
 LABEL tools.ksops.version="v3.0.0"
 
+FROM curlimages/curl:7.80.0 AS age
+
+WORKDIR /tmp/age
+
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
+RUN curl -sSL 'https://github.com/FiloSottile/age/releases/download/v1.0.0/age-v1.0.0-linux-amd64.tar.gz' | tar xzvf -
+
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
 ARG HELM_SECRETS_VERSION
@@ -55,6 +63,8 @@ COPY --from=go-jsontoyaml-builder /go/bin/gojsontoyaml /usr/local/bin/gojsontoya
 
 # Override the default kustomize executable with the Go built version
 COPY --from=ksops-builder /go/bin/kustomize /usr/local/bin/kustomize
+
+COPY --from=age /tmp/age/age /usr/local/bin/
 
 # Switch back to non-root user
 USER 999
