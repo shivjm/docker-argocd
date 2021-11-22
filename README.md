@@ -2,7 +2,7 @@
 
 [![Build and publish to Docker Hub](https://github.com/shivjm/docker-argocd/actions/workflows/publish.yml/badge.svg)](https://github.com/shivjm/docker-argocd/actions/workflows/publish.yml)
 
-A drop-in ArgoCD Docker image replacement with preinstalled
+A drop-in ArgoCD Docker image replacement with preinstalled [age](https://github.com/FiloSottile/age),
 [KSOPS](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration),
 [gojsontoyaml](https://github.com/brancz/gojsontoyaml),
 [go-jsonnet](https://github.com/google/go-jsonnet/),
