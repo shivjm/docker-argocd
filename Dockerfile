@@ -10,13 +10,7 @@ FROM common AS jb-builder
 
 ARG JSONNET_BUNDLER_COMMIT
 
-WORKDIR /jsonnet-bundler
-
-RUN git init --quiet && \
-    git remote add origin https://github.com/jsonnet-bundler/jsonnet-bundler.git && \
-    git fetch -n --depth 1 origin $JSONNET_BUNDLER_COMMIT && \
-    git reset --hard FETCH_HEAD && \
-    go build -ldflags='-extldflags=-static -linkmode=external' -o jb /jsonnet-bundler/cmd/jb
+RUN go install -ldflags='-extldflags=-static -linkmode=external' github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@$JSONNET_BUNDLER_COMMIT
 
 FROM common AS go-jsonnet-builder
 
@@ -55,7 +49,7 @@ ENV KUSTOMIZE_PLUGIN_PATH=$XDG_CONFIG_HOME/kustomize/plugin/
 
 ARG PKG_NAME=ksops
 
-COPY --from=jb-builder /jsonnet-bundler/jb /usr/local/bin/jb
+COPY --from=jb-builder /go/bin/jb /usr/local/bin/jb
 
 COPY --from=go-jsonnet-builder /go/bin/jsonnet /usr/local/bin/jsonnet
 
