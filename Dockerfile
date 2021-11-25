@@ -1,8 +1,15 @@
+# Specifying versions directly in the Dockerfile lets tools parse
+# them, but then the versions must be repeated for the labels, which
+# means the two can drift out of sync. When both are controlled
+# externally instead, there is always a single source of truth to
+# update.
+
 ARG ARGOCD_VERSION
+ARG GO_VERSION
+ARG KSOPS_VERSION
+ARG CURL_VERSION
 
-FROM golang:1.17.0-alpine AS common
-
-LABEL go.version="1.17.0"
+FROM golang:$GO_VERSION AS common
 
 RUN apk add -q --no-cache git=2.32.0-r0 musl-dev=1.2.2-r3 gcc=10.3.1_git20210424-r2
 
@@ -24,17 +31,17 @@ ARG GOJSONTOYAML_VERSION
 
 RUN go install -ldflags='-extldflags=-static -linkmode=external' github.com/brancz/gojsontoyaml@$GOJSONTOYAML_VERSION
 
-FROM viaductoss/ksops:v3.0.0 AS ksops-builder
+FROM viaductoss/ksops:$KSOPS_VERSION AS ksops-builder
 
-LABEL tools.ksops.version="v3.0.0"
+FROM curlimages/curl:$CURL_VERSION AS age
 
-FROM curlimages/curl:7.80.0 AS age
+ARG AGE_VERSION
 
 WORKDIR /tmp/age
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN curl -sSL 'https://github.com/FiloSottile/age/releases/download/v1.0.0/age-v1.0.0-linux-amd64.tar.gz' | tar xzvf -
+RUN curl -sSL "https://github.com/FiloSottile/age/releases/download/$AGE_VERSION/age-${AGE_VERSION}-linux-amd64.tar.gz" | tar xzvf -
 
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
