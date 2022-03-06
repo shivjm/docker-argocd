@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    uses: "shivjm/docker-argocd/.github/workflows/docker.yml@6b02c35b1e9d41f2e376e9b16ae588183634b304"
+    uses: "shivjm/docker-argocd/.github/workflows/docker.yml@74ccf4a05a62dc28e5fbcb6f4d78b31b7da290cf"
     with:
       push: false
   lint:
