@@ -14,7 +14,7 @@ env:
   jb: 6bb2d1af6c8a6522cfe74e7a9cf49619d18448a1
   jsonnet: v0.18.0
   gojsontoyaml: v0.1.0
-  ksops: v3.0.0
+  ksops: v3.0.2
   curl: 7.80.0
 
 jobs:
