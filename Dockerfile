@@ -11,7 +11,7 @@ ARG CURL_VERSION
 
 FROM golang:$GO_VERSION AS common
 
-RUN apk add -q --no-cache git=2.32.0-r0 musl-dev=1.2.2-r3 gcc=10.3.1_git20210424-r2
+RUN apk add -q --no-cache git=2.34.2-r0 musl-dev=1.2.2-r7 gcc=10.3.1_git20211027-r0
 
 FROM common AS jb-builder
 
