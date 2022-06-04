@@ -8,7 +8,7 @@ on:
 
 env:
   image: ghcr.io/shivjm/argocd
-  go: 1.17.0-alpine
+  go: 1.18.0-alpine
   age: v1.0.0
   helmSecrets: v3.14.0
   jb: 6bb2d1af6c8a6522cfe74e7a9cf49619d18448a1
