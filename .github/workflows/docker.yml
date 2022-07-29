@@ -51,12 +51,16 @@ jobs:
           - v2.2.8
           - v2.2.9
           - v2.2.10
+          - v2.2.11
+          - v2.2.12
           - v2.3.0
           - v2.3.1
           - v2.3.2
           - v2.3.3
           - v2.3.4
           - v2.3.5
+          - v2.3.6
+          - v2.3.7
           - v2.4.0
           - v2.4.1
           - v2.4.2
@@ -65,6 +69,7 @@ jobs:
           - v2.4.5
           - v2.4.6
           - v2.4.7
+          - v2.4.8
           # - v2.0.5 # official image uses `USER argocd` instead of `USER 999`
     steps:
       - name: Login to GitHub Container Registry
