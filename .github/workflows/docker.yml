@@ -155,3 +155,5 @@ jobs:
           tags: "${{ env.image }}:${{ matrix.argo }}" # ignore metadata-action tags
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ inputs.push == true }}
+          sbom: true
+          provenance: true
