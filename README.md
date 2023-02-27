@@ -52,3 +52,17 @@ images:
 ### With Helm
 
 Specify `global.image.repository` and `global.image.tag` when installing using [the community-maintained Helm chart](https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd): <kbd>helm install --atomic argocd argo/argo-cd --set global.image.repository=ghcr.io/shivjm/argocd,global.image.tag=v2.1.0</kbd>
+
+## Attestations
+
+[Provenance attestations](https://docs.docker.com/build/attestations/slsa-provenance/) are embedded in the image via BuildKit and can be inspected through <kbd>docker buildx imagetools inspect</kbd>. For example:
+
+```bash
+docker buildx imagetools inspect ghcr.io/shivjm/argocd:v2.5.11 --format "{{ json .Provenance.SLSA }}"
+```
+
+[SBOM attestations](https://docs.docker.com/build/attestations/sbom/) are embedded and can be inspected in the same way. For example:
+
+```bash
+docker buildx imagetools inspect ghcr.io/shivjm/argocd:v2.5.11 --format "{{ range .SBOM.SPDX.packages }}{{ println .name .versionInfo }}{{ end }}" | bat
+```
