@@ -9,12 +9,12 @@ on:
 env:
   image: ghcr.io/shivjm/argocd
   go: 1.18.0-alpine
-  age: v1.0.0
-  helmSecrets: v4.1.1
+  age: v1.1.1
+  helmSecrets: v4.4.0
   jb: 6bb2d1af6c8a6522cfe74e7a9cf49619d18448a1
-  jsonnet: v0.18.0
+  jsonnet: v0.19.1
   gojsontoyaml: v0.1.0
-  ksops: v3.0.2
+  ksops: v4.1.0
   curl: 7.80.0
 
 jobs:
@@ -155,3 +155,5 @@ jobs:
           tags: "${{ env.image }}:${{ matrix.argo }}" # ignore metadata-action tags
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ inputs.push == true }}
+          sbom: true
+          provenance: true
