@@ -4,6 +4,8 @@
 # externally instead, there is always a single source of truth to
 # update.
 
+ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG ARGOCD_VERSION
 ARG GO_VERSION
 ARG KSOPS_VERSION
