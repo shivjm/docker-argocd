@@ -9,6 +9,6 @@ on:
 
 jobs:
   build:
-    uses: "shivjm/docker-argocd/.github/workflows/docker.yml@234e5f64f3cf406c2fd1b95b5d737b44da383886"
+    uses: "shivjm/docker-argocd/.github/workflows/docker.yml@28ca50c3241f175d6bb254745acea9f83e2d9bf3"
     with:
       push: true
